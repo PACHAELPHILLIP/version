@@ -1,0 +1,190 @@
+{% extends 'sub_nav.html' %}
+{% load static from staticfiles %}
+
+
+
+{% load thumbnail %}
+{%  block title %}
+      {{object.title}}
+      {% endblock%}
+{% block content %}
+<div class="container ">
+  <div class='row'>
+  <div class="col s12 m10">
+  <span class="card-title"><h5>{{ post.title|lower}}</h5></span>
+  Story by <a href="{% url 'profiledetail' username=post.author %}">{{ post.author}}</a> {{post.created|timesince}}
+   <div  class="owl-carousel owl-theme">
+                 {% for image in post.images_set.all %} 
+                 <div class="row">
+                 <div class="col s12  m9">
+                   {% thumbnail  image.image "600x600"   as im %}
+                 <img  class ='responsive-img' src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                   {% endthumbnail %}
+                 </div>
+                 <div class="col s12 m3">
+                   <div class="container ">
+                     <p>{{image.body}}</p>
+                   </div>
+                    
+                 </div>
+                 </div>
+                 {% endfor %}  
+              </div>
+  <hr>
+ <div class="">
+      {% with total_likes=post.users_like.count users_like=post.users_like.all %}
+        <div class="image-info">
+                <div>
+                    <span class="count">
+                        <span class="total">{{ total_likes }}</span>
+                    </span>
+                    <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like">
+
+                        {% if request.user not in users_like %}
+                             <i class=" material-icons red-text">bookmark_border</i>
+                        {% else %}
+                             <i class="material-icons red-text">bookmark</i>
+                        {% endif %}
+                    </a>
+                     <i class="material-icons">chat_bubble_outline</i>
+                      {% if request.user == post.author %}
+    <a class =" " href="{% url 'usersubmit:postedit' slug=post.slug %}"><i class="material-icons">settings</i></a>
+    <a  class =" " href="{% url 'usersubmit:post_remove' slug=post.slug %}"><i class="material-icons">delete_forever</i></a>
+{% endif %}  
+                </div>
+        </div>
+
+        <div class="image-likes">
+            {% for user in post.users_like.all %}
+            {% thumbnail  user.profile.photo "20x20" crop="100%" as im %}
+                <a href={% url 'profiledetail' username=user.username %} ><img class=" circle responsive-img" src="{{ im.url }}" ></a> 
+                   {% endthumbnail %}
+                <a href="{% url 'profiledetail' username=user.username %}">{{ user.username}}</a>,
+            {% empty %}
+                Nobody likes this image yet.
+            {% endfor %}
+        </div>
+    {% endwith %}
+          {% for tag in post.tags.all %}
+          <a class ="indigo-text" href="tags/{{tag}}">#{{tag}}</a>
+            <!--{% if not forloop.last %},{% endif %}-->
+            {% endfor %}
+          </div>
+          <hr>
+      
+  <iframe height="300px" width="100%" src="https://repl.it/repls/ShamefulMagentaMastodon?lite=true" scrolling="yes" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals" width="100%" ></iframe>
+  We are always excited about launching new features and sharing with you, our dear users, what we’ve been up to. For the past few months, Amjad, Mason and I have been working hard and last night we quietly launched the new repl features. These features required a lot of infrastructure and data changes which is always tricky to execute. We ran into some technical difficulties last night with the data migration but was able to bring the site back up and things have been running relatively smoothly since then.
+  <iframe height="400px" width="100%" src="https://repl.it/repls/PreciousVirtualEelelephant?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals" width="100%" ></iframe>
+ <!--comment-->
+  <div class="">
+
+    {% thumbnail  request.user.profile.photo "25x25" as im %}
+                 <img class="circle responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}{{request.user.username}}
+             <form action="" method="post" id="comment-form">
+    {% csrf_token %}
+     <div class="fieldWrapper" id="the_post">
+        {{ comment_form.as_p}}
+    </div>
+    
+    <div class ='right-align'>
+    <input class =" small btn light-blue accent-2" type="submit" value="comment" />
+    </div>
+   <br />
+   
+    
+</form> 
+        </div>
+     {% with comments.count as total_comments %}
+        <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
+    {% endwith %}
+    <div  id="entries"  class="endless_page_template ">
+     
+     {% include page_template  %}
+  
+     </div>
+
+          </div>
+
+         
+<div class='col m2'>
+
+</div>
+</div>
+
+
+          </div>
+<hr>
+
+{% endblock %}
+
+ {% block script %} 
+ <script>
+   $('.owl-carousel').owlCarousel({
+    items:1,
+    loop:true,
+    margin:10,
+    autoHeight:true,
+    nav:true,
+});
+ </script>
+
+ <script type="text/javascript" src = "{% static 'el-pagination/js/el-pagination.js' %}"> </script>
+     <script>$('#entries').endlessPaginate({paginateOnScroll: false, paginateOnScrollMargin: 200});</script>
+   {% endblock %}
+
+{% block domready %}
+ $(document).ready(function(){
+    $('a.like').click(function(e){
+        e.preventDefault();
+        $.post('{% url "usersubmit:like" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok')
+                {
+                    var previous_action = $('a.like').data('action');
+
+                    // toggle data-action
+                    $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+                    // toggle link html
+                    $('a.like').html(previous_action == 'like' ? ' <i class="material-icons red-text">bookmark</i>' : ' <i class="material-icons red-text">bookmark_border</i>');
+
+                    // update total likes
+                    var previous_likes = parseInt($('span.count .total').text());
+                    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+                }
+        });
+
+    });
+    	});
+
+
+
+{% endblock %}
+
+
+      $( document ).ready(function() {
+    $("#comment-form").submit(function(event) {
+event.preventDefault();
+            var data= $(this).val();
+            alert(data)
+            $.ajax({
+                data: $(this).serialize(),
+                type:'POST',
+                url:{% url 'usersubmit:create_post'  %} 
+                success: function(data){
+                    console.log(data);
+                    $("#div1").html(data);
+                    $(this).val('');
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+});
+ 
+

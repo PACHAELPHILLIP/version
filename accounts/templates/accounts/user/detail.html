@@ -1,0 +1,161 @@
+{% extends 'sub_nav.html' %}
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% block title %}Post{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<div class="row">
+
+ <div class="col s12 m4">
+          <div class="">
+            <div class=" card-content">
+              <div class='row'>
+                <div class='col m4'>
+                   {% thumbnail  user.profile.photo "80x80" crop='center' as im %}
+                 <img class="circle responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+                </div>
+
+                <div class='col m8'>
+                  <h5>{{user.username|upper}} <i class="material-icons blue-text">check_circle</i></h5>
+                  <p>Traveller</p>
+                   {% if request.user != user %}
+                   <a  href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow btn">
+            {% if request.user not in user.followers.all %}
+                Follow
+            {% else %}
+                Unfollow
+            {% endif %}
+        </a>
+             {% endif %}
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="card-action">
+            <a class="waves-effect waves-light modal-trigger"  data-target="modal1" href="#modal1">
+                {% with total_followers=user.followers.count %}
+        <span class="count">
+            <span class="total">{{ total_followers }}</span> Follower{{ total_followers|pluralize }}</a>
+            
+        </span>
+        {% endwith %}
+         <!--modal-->
+      <div id="modal1" class="modal">
+    <div class="modal-content">
+     
+Followers
+<hr>
+<div id="entries1" class="endless_page_template">
+    {% include "accounts/user/follower.html" %}
+</div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Exit</a>
+    </div>
+  </div>
+   <div id="modal2" class="modal">
+    <div class="modal-content">
+     
+Following
+<hr>
+<div id="entries2" class="endless_page_template">
+    {% include "accounts/user/following.html" %}
+</div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Exit</a>
+    </div>
+  </div>|
+   <a class="waves-effect waves-light modal-trigger"  data-target="modal2" href="#modal2">
+                {% with total_following=user.following.count %}
+        <span class="">
+            <span class="">{{ total_following }}</span>  Following</a>
+        {% endwith %}
+
+             <p>Posts 10</p>
+             {% if request.user == user %}
+       <a class="waves-effect cyan lighten-2 chip" href="{% url 'edit' %}">Update Profile</a>
+             {% endif %}
+         </div>
+          </div>
+        </div>
+
+    <!--test-->
+        <div class="col m8">
+           <div class=" ">
+             <p>About:</p>
+               <p>{{user.profile.description}}</p>
+            </div>
+<hr>
+
+
+          <p>Posts:</p>
+    <div  id="entries"  class="endless_page_template ">
+     
+     {% include page_template  %}
+  
+     </div>
+     </div>
+     </div>
+     </div>
+  
+      
+  {% endblock %}
+
+
+ 
+  {% block script %}
+       <script type="text/javascript" src = "{% static 'el-pagination/js/el-pagination.js' %}"> </script>
+     <script>$('#entries').endlessPaginate({paginateOnScroll: true, paginateOnScrollMargin: 200});</script>
+      <script>$('#entries1').endlessPaginate({paginateOnScroll: false, paginateOnScrollMargin: 200});</script>
+      <script>$('#entries2').endlessPaginate({paginateOnScroll: false, paginateOnScrollMargin: 200});</script>
+     
+ <script>
+        $(".close").click(function(){
+    $(".customhide").fadeOut(1000);
+});
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });      
+
+    </script>
+    
+{% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok')
+                {
+                    var previous_action = $('a.follow').data('action');
+
+                    // toggle data-action
+                    $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+                    // toggle link text
+                    $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+                    // update total followers
+                    var previous_followers = parseInt($('span.count .total').text());
+                    $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+                }
+        });
+    });
+{% endblock %}
+
+ 

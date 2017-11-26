@@ -1,0 +1,11 @@
+<div class="row">
+          <div class="card scroll">
+           <div class="collection">
+             <a href="#!" class="collection-item"><p>Picked by Version</p></a>
+             {% for article in articles %}
+        <a href="{{ article.get_absolute_url }}" class="collection-item"><p> <img height= "20px" width="20px" src="{{article.source_logo}}">{{article.title}}</p></a>
+         {%  endfor %}
+         </div>
+         </div>
+      </div>
+        

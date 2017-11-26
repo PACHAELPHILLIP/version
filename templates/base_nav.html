@@ -1,0 +1,99 @@
+
+  <!DOCTYPE html>
+  {% load static from staticfiles %}
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <title>{% block title %}{% endblock %}</title>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+      <!--owlplugin-->
+<link rel="stylesheet" href="{% static 'owlcarousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'owlcarousel/assets/owl.theme.default.min.css' %}">
+
+       <!--owlplugin-->
+      <!--custom-->
+       <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+<!--Navbar-->
+<div class="navbar-fixed">
+ <nav class="nav-extended navcolor">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">  <img height="25px" width="25px"src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png" alt="">Newly</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">=</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="">Version</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Reviews</a></li>
+        <li><a href="">Tech</a></li>
+        <li><a href="">Music</a></li>
+        <li ><a class ="chip teal accent-3" href="{% url 'usersubmit:createpost' %}">Submit</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="">Version</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Reviews</a></li>
+        <li><a href="">Tech</a></li>
+        <li><a href="">Music</a></li>
+        <li><a class="chip teal accent-3" href="{% url 'usersubmit:createpost' %}">Lifestyle</a></li>
+      </ul>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a class="active waves-effect"  href="#test1">Latest</a></li>
+        <li class="tab"><a  class ="waves-effect"href="#test2 ">Popular</a></li>
+        <li class="tab"><a class="waves-effect" href="#test3">Video</a></li>
+       <li class =" left-align"> <div>
+     <form action='{% url 'blog:search'%}' method="GET">
+       <div class="input-field col s12">
+          <input id="search" type="search" name='q'>
+          <label for="search">Looking for something?</label>
+        </div>
+      </form>
+   </div></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+
+  <!--Navbar End-->
+  <!--slide bar-->
+   {% block content %}
+   
+   
+   
+   
+   
+   
+   
+   
+   {% endblock %}
+ 
+<!--footer-->
+   <footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Version
+            <a class="grey-text text-lighten-4 right" href="#!">Learn More</a>
+            </div>
+          </div>
+        </footer>
+        <!--footer end-->
+ <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'owlcarousel/owl.carousel.min.js' %}"></script>
+      <script type="text/javascript" src = "{% static 'js/custom.js' %}"></script>
+   {% block script %}   {% endblock %}
+      </script>
+    </body>
+  </html>
+        

@@ -1,0 +1,36 @@
+
+
+{% extends "sub_nav.html" %}
+
+{% block content %}
+<div class="container">
+    <div class=' row card '>
+  <!--grid2-->
+    <div class = 'col m6'>
+
+        <img class="responsive-img" src="https://cms-assets.tutsplus.com/uploads/users/1604/posts/28395/image/Flat-Summer06-step4.jpg" alt="">
+        
+    </div>
+
+     <div class="col s12 m6  ">
+       <div>
+    <h5> Thanks for spending some quality time with <a  class =" chip teal accent-2" href="{% url "blog:feeds"%}">Newly </a> </h5>
+    <br>
+    <p>We will curate more contents and wait for you once again.</p>
+    <p>You can still access our contents without logging in.</p>
+
+<p><a class =" chip teal accent-2" href="{% url 'login' %}">Log in again</a></p>
+</div>
+
+        
+</div>
+   
+  
+  
+</div>
+
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends "sub_nav.html" %}
+{% load static from staticfiles %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+ {{user.username}}
+    <h1>All post:</h1>
+    <div  id="entries"  class="endless_page_template">
+      {% include page_template %}
+    </div>
+{% endblock %}
+
+{% block js %}
+       <script type="text/javascript" src = "{% static 'el-pagination/js/el-pagination.js' %}"> </script>
+     <script>$('#entries').endlessPaginate({paginateOnScroll: true, paginateOnScrollMargin: 500});</script>
+     
+
+{% endblock %}

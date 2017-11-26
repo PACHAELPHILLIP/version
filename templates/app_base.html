@@ -1,0 +1,89 @@
+
+  <!DOCTYPE html>
+  {% load static from staticfiles %}
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <title>{% block title %}{% endblock %}</title>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+      <!--owlplugin-->
+<link rel="stylesheet" href="{% static 'owlcarousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'owlcarousel/assets/owl.theme.default.min.css' %}">
+
+       <!--owlplugin-->
+      <!--custom-->
+       <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+<!--Navbar-->
+<div class="row">
+
+      <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></div>
+      <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(0%);">
+          <div class="search-wrapper card">
+            <input id="search"><i class="material-icons">search</i>
+            <div class="search-results"></div>
+          </div>
+        <li class="bold"><a href="about.html" class="waves-effect waves-teal">Profile</a></li>
+        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Notificaions</a></li>
+        <li class="no-padding">
+        </li>
+        <li class="bold"><a href="mobile.html" class="waves-effect waves-teal">Post</a></li>
+        <li class="bold"><a href="showcase.html" class="waves-effect waves-teal">Settings</a></li>
+        <li class="bold"><a href="themes.html" class="waves-effect waves-teal">Logout<span class="new badge"></span></a></li>
+      </ul>
+
+      <div class="col m4 hide-on-small-only">
+    </div>
+ <div class="col s12 m6">
+      
+        {% block content %}
+   
+   
+   
+   
+   
+   
+   
+   
+   {% endblock %}
+ 
+
+
+    </div>
+    <div class ="col m2">
+      
+    </div>
+</div>
+    
+  <!--Navbar End-->
+  <!--slide bar-->
+  
+ 
+<!--footer-->
+   <footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Version
+            <a class="grey-text text-lighten-4 right" href="#!">Learn More</a>
+            </div>
+          </div>
+        </footer>
+        <!--footer end-->
+ <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'owlcarousel/owl.carousel.min.js' %}"></script>
+      <script type="text/javascript" src = "{% static 'js/custom.js' %}">
+      </script>
+       {% block script %}   {% endblock %}
+    </body>
+  </html>
+        

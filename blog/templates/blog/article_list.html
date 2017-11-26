@@ -1,0 +1,87 @@
+{% extends 'sub_nav.html' %}
+{% load thumbnail %}
+{% load blog_extras %}
+{% block title %}
+  Newly | Feeds
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <!--Bannerads-->
+<div  class="center-align dismissable ">
+   <a href="#"><img class="hoverable responsive-img bannerimg" src="https://tpc.googlesyndication.com/simgad/12296599787879258797" alt="ads"></a> 
+   <a href="#">Sponsered Ads</a>
+</div>
+<!--Bannerads end-->
+<!--Grid1-->
+ 
+ 
+ <div class="col s12 m7">
+   <div>
+     <form action='{% url 'blog:search'%}' method="GET">
+       <div class="input-field col s12">
+          <input id="search" type="search" name='q'>
+          <label for="search">Looking for something?</label>
+        </div>
+      </form>
+   </div>
+   {% for article in object_list %}
+    <div class="col s12 m12">
+    <div class="card horizontal hoverable waves-effect">
+      <div class="card-image">
+        {% thumbnail article.thumbnail "200x200"  as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+       
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+         <a href="{{ article.get_absolute_url }}"><h6> <img height= "20px" width="20px" src="{{article.source_logo}}" > <span>{{ article.title|truncatewords:10|upper}}</span></h6></a>
+            <p class="created">{{article.created}}  {% if article.video == True %}
+          <a class="new badge" data-badge-caption="Video">Video</a>
+        {% endif %}</p>
+        </div>
+        </div>
+    </div>
+  </div> 
+   {% endfor%}
+
+   <!--paginate-->
+
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+    {% else %}
+      <li class="disabled"><span><i class="material-icons">chevron_left</i></span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active cyan accent-2"><span><a>{{ i }}</a></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+    {% else %}
+      <li class="disabled"><span><i class="material-icons">chevron_right</i></span></li>
+    {% endif %}
+  </ul>
+
+   <!--endpaginate-->
+ </div>
+ <!--Grid2-->
+      <div class="col s12 m5">
+        <!--Ads-->
+<div class="card">
+  <img src="https://tpc.googlesyndication.com/simgad/17718052605109367698" alt="">
+</div>
+        <!--endads-->
+        <!--collection-->
+       {% latest_articles %}
+        
+            
+        <!--collection-->
+      </div>
+   <!--Grid ends-->   
+  </div>
+  {% endblock %}

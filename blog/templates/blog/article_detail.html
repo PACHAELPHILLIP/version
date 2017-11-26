@@ -1,0 +1,103 @@
+{% extends 'sub_nav.html' %}
+{% load thumbnail %}
+{% load blog_extras %}
+{% block title %}
+  Newly|{{article.title}}
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <!--Bannerads-->
+<div  class="center-align dismissable ">
+   <a href="#"><img class="hoverable responsive-img bannerimg removable" src="https://storage.googleapis.com/support-kms-prod/SNP_501E7C3D5CA3CA07C641E6BAFB8A53C794CF_2922339_en_v2" alt="ads"></a> 
+   <a href="#">Sponsered Ads</a>
+</div>
+<!--Bannerads end-->
+<!--Grid1-->
+ <div class="col s12 m8">
+    <div >
+     <form action='{% url 'blog:search'%}' method="GET">
+       <div class="input-field col s12 chip large">
+          <input id="search" type="search" name='q'>
+          <label for="search">Search</label>
+        </div>
+      </form>
+   </div>
+   <div class="row">
+    <div class="col s12 12">
+      <div class="card">
+        <div class="card-image">
+          {% thumbnail article.thumbnail "400x300"  as im %}
+    <img class ="materialboxed responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+ </div>
+   <div class="card-content">
+       <span class="card-title"><h5>{{ article.title|upper}}</h5></span>
+          <div>
+   <p class=" text-lighten-2"><img height= "20px" width="20px" src="{{article.source_logo}}" > {{article.created|timesince}}</p>
+ </div>
+     <hr>
+          <p class="">{{ article.synopsis}}</p>
+
+          <hr>
+
+
+
+           <div class="">
+             <a class="waves-effect waves-light chip" href="{{article.sourcelink}}" target="_blank">Source</a>
+
+             {% for tag in article.tags.all %}
+         <a class="chip  cyan accent-2" href="tags/{{tag}}">{{tag}}</a>
+            <!--{% if not forloop.last %},{% endif %}-->
+            {% endfor %}
+          </div>
+          <hr>
+          {% if user.is_authenticated %}
+           <ul class="" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header popout " onclick="Materialize.toast('Enjoy!what you read.', 4000,'rounded')"><i class="material-icons">chrome_reader_mode</i>Read More</div>
+      <div class=""><span>{{article.body|safe}}</span></div>
+    </li>
+  </ul>
+  {% else %}
+      <div class="collapsible-header " onclick="Materialize.toast('Login to enjoy the story.', 4000,'rounded')"><i class="material-icons">chrome_reader_mode</i>Read More</div>
+  {% endif %}
+
+          <!--button-->
+
+          <!--tags-->
+          </div>
+         
+       <!--  <div class="card-content sourceaction">
+            <li> <a><p><img class="sourcelogo " src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="">Source</p></a></li>
+           <li>   <a class="waves-effect waves-light btn" href="#modal1">Read More</a></li>
+          </div> -->
+
+ <!--button end-->
+      </div>
+    </div>
+   
+
+  </div>
+         
+ </div>
+ 
+ <!--Grid2-->
+      <div class="col s12 m4">
+        <!--Ads-->
+<div class="card">
+  <img class='removable'src="https://lh5.ggpht.com/CztHBMfmRKhSv-_up3GCkK5R5M0TCm1czCVkVBwB0urvaHUVCEh6YtpS7DY3mcZuwC2SzX9A3w=w338" alt="">
+</div>
+        <!--endads-->
+        <!--collection-->
+        
+            {% latest_articles %}
+        <!--collection-->
+      </div>
+   <!--Grid ends-->   
+  </div>
+  <!-- Modal Structure -->
+
+{% endblock %}
+
+  

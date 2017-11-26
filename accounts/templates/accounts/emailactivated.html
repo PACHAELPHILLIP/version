@@ -1,0 +1,33 @@
+ {% extends "sub_nav.html" %} {% block content %}
+<div class="container">
+    <div class=' row card '>
+        <!--grid2-->
+        <div class='col m6'>
+
+            <img class="responsive-img" src="https://cms-assets.tutsplus.com/uploads/users/1604/posts/28395/image/Flat-Summer06-step4.jpg"
+                alt="">
+
+        </div>
+
+        <div class="col s12 m6  ">
+            <div>
+                <h5> Thanks for taking a time to verify your email. </h5>
+                <br>
+                <p>We do this to ensure spam and security purpose.Your email is verified.</p>
+                <p>Start explorring ou lated feeds curated for you.</p>
+
+            </div>
+
+            <a href="{% url 'blog:feeds' %}">
+                <h4>Explore now</h4>
+            </a>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

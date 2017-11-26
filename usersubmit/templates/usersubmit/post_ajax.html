@@ -1,0 +1,19 @@
+{% load thumbnail %}
+{% load el_pagination_tags %}
+{%  lazy_paginate 6  post %}
+<div class="row">
+  {% for article in post  %}
+  <div class="col  s6 m4">
+          <div>
+
+                   {% thumbnail  article.get_first_image.image "300x300" crop="center" as im %}
+                <a href="{{ article.get_absolute_url }}"><img class="responsive-img" src="{{ im.url }}" ></a> 
+                   {% endthumbnail %}
+                    
+                 
+              </div>
+          </div>
+          {% endfor %}
+
+</div>
+{% show_more %}

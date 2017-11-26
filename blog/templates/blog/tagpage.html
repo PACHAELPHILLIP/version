@@ -1,0 +1,123 @@
+
+{% extends 'sub_nav.html' %}
+{% block content %}
+  <div class="row">
+    <!--Bannerads-->
+<div  class="center-align dismissable ">
+   <a href="#"><img class="hoverable responsive-img bannerimg" src="https://storage.googleapis.com/support-kms-prod/SNP_501E7C3D5CA3CA07C641E6BAFB8A53C794CF_2922339_en_v2" alt="ads"></a> 
+   <a href="#">Sponsered Ads</a>
+</div>
+<!--Bannerads end-->
+<!--Grid1-->
+ 
+
+<div class="col s12 m7">
+    <p class= ' green accent-2 pulse chip large'>{{tag}}</p>
+   {% for article in articles %}
+    <div class="col s12 m12">
+    <div class="card horizontal hoverable waves-effect z-depth-3">
+         <div class= "card-image">
+            <img src="{{article.thumbnail}}">
+         </div>
+       
+   
+      <div class="card-stacked">
+        <div class="card-content">
+         <a href="{{ article.get_absolute_url }}"><p> <img height= "20px" width="20px" src="{{article.source_logo}}" >  {{ article.title|truncatewords:10|upper}}</p></a> <p> 
+            <p class=" green accent-2 pulse chip large">{{article.created}}| {{tag}}</p>
+        </div>
+        </div>
+    </div>
+  </div> 
+   {% endfor%}
+
+   <!--paginate-->
+
+  {% if articles.has_other_pages %}
+  <ul class="pagination">
+    {% if articles.has_previous %}
+      <li><a href="?page={{ articles.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+    {% else %}
+      <li class="disabled"><span><i class="material-icons">chevron_left</i></span></li>
+    {% endif %}
+    {% for i in articles.paginator.page_range %}
+      {% if articles.number == i %}
+        <li class="active cyan accent-2 "><span><a>{{ i }}</a> </span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if articles.has_next %}
+      <li><a href="?page={{ articles.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+    {% else %}
+      <li class="disabled"><span><i class="material-icons">chevron_right</i></span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+   <!--endpaginate-->
+ </div>
+ <!--Grid2-->
+      <div class="col s12 m5">
+        <!--Ads-->
+<div class="card">
+  <img src="https://lh5.ggpht.com/CztHBMfmRKhSv-_up3GCkK5R5M0TCm1czCVkVBwB0urvaHUVCEh6YtpS7DY3mcZuwC2SzX9A3w=w338" alt="">
+</div>
+        <!--endads-->
+        <!--collection-->
+        <div class="row">
+          <div class="card scroll">
+           <div class="collection">
+             <a href="#!" class="collection-item"><p>Picked by Version</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+       <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+       <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+       <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+        <a href="#!" class="collection-item"><p> <img height= "20px" width="20px" src="http://vignette2.wikia.nocookie.net/logopedia/images/4/47/CNN_International_logo_2014.png/revision/latest?cb=20140910201936" alt="CNN logo">   I am good at containing small bits of information.</p></a>
+       
+         </div>
+         </div>
+      </div>
+        
+            
+        <!--collection-->
+      </div>
+   <!--Grid ends-->   
+  </div>
+  {% endblock %}
+
+
+
+
+
+
+
+<!--real-->
+<div class="col s12 m8">
+   {% for article in articles %}
+    <div class="col s12 m12">
+    <div class="card horizontal hoverable waves-effect">
+      <div class="card-image">
+        <img class = "materialboxed responsive-img" src="{{article.thumbnail}}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+         <a href="{{ article.get_absolute_url }}"><p> <img height= "20px" width="20px" src="{{article.source_logo}}" >  {{ article.title}}</p></a> <p> 
+        </div>
+         <div class="footer-copyright">
+            <div class="container">
+
+            <p class=" text-lighten-2">{{article.created}}</p>
+            </div>
+          </div>
+        </footer>
+        </div>
+    </div>
+  </div> 
+   {% endfor%}
+   <!--real-->

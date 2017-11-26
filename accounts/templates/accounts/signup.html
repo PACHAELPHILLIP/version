@@ -1,0 +1,37 @@
+{% extends "sub_nav.html" %}
+{% block content %}
+<div class="container">
+  <div class=" row card">
+      <div class = 'col s12 m6'>
+
+        <img class="responsive-img" src="https://cms-assets.tutsplus.com/uploads/users/1604/posts/28395/image/Flat-Summer06-step4.jpg" alt="">
+        
+    </div>
+    <div class="col s12 m6 ">
+      <div class="container">
+         <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="display: none">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+      {% endfor %}
+   <div class="center-align">
+     <button class="waves-effect waves-light btn teal accent-2" type="submit">Sign up</button>
+       <a class="waves-effect waves-light btn purple lighten-2" href="{% url 'login'%}"  >Already have an account?</a>
+   </div>
+  </form>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+{% endblock %}

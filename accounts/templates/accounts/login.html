@@ -1,0 +1,45 @@
+{% extends "sub_nav.html" %}
+
+{% block content %}
+<div class="container">
+    <div class=' row card '>
+  <!--grid2-->
+    <div class = 'col m6'>
+
+        <img class="responsive-img" src="https://cms-assets.tutsplus.com/uploads/users/1604/posts/28395/image/Flat-Summer06-step4.jpg" alt="">
+        
+    </div>
+
+     <div class="col s12 m6  ">
+        <div class="container">
+             <form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <div class ='center-align'>
+        
+             <input class ="btn light-blue accent-2" type="submit" value="login" />
+        
+         <a  class ="waves-effect waves-light btn teal accent-2" href="{% url "signup" %}">Create an Account </a>
+    </div>
+   <br />
+   
+    
+</form> 
+        </div>
+        <div class= "center-align">
+             <ul>
+        <li><a class="chip  lime accent-2" href="#">Register an Account</a></li>
+        <li> <a class="chip purple lighten-2"href="{% url 'password_reset'%}">Can't Remember Password?</a></li>
+    </ul>
+        </div>
+        
+</div>
+   
+  
+  
+</div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base_nav.html' %}
+{% load thumbnail %}
+{% block content %}
+
+<div id="test1" class="col s12">
+  <div>
+     <h5 class="title">Version's Favorite</h5>
+   </div>
+<section id = "owl-1">
+
+    <div  class="owl-carousel owl-theme">
+        {% for article in favorite %}
+        <div class="row ">
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-image">
+              {% thumbnail article.thumbnail "200x200" crop="center" as im %}
+    <img class ="responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+            </div>
+            <div class="card-content">
+             <a href="{{ article.get_absolute_url }}"><span><p>{{article.title|truncatewords:5}}</p></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endfor %}
+  </div>
+    
+</section>
+ 
+<div class="row">
+  <!--Bannerads-->
+<div  class="center-align dismissable ">
+   <a href="#"><img class="hoverable responsive-img bannerimg" src="https://tpc.googlesyndication.com/simgad/12296599787879258797" alt="ads"></a> 
+   <a href="#">Sponsered Ads</a>
+</div>
+<h5 class="container ">Collection</h5>
+<hr class=" lime accent-2">
+<div class="col m12 s12">
+        {% for article in article %}
+     <div class="col s12 m6">
+    <div class="card horizontal hoverable">
+      <div class="card-image">
+       {% thumbnail article.thumbnail "200x200"  as im %}
+    <img class="responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>  <img height= "20px" width="20px" src="{{article.source_logo}}"  alt=""> {{article.title}}   </p>
+        </div>
+        </div>
+    </div>
+  </div>
+   {% endfor %}
+
+</div>
+<!--end-->
+    
+</div>
+<!--articles-->
+</div>
+
+<!--2nd tab-->
+<div id="test2" class="col s12">
+   <div>
+     <h5 class="title">Video</h5>
+   </div>
+  Irure exercitation Lorem nostrud consectetur deserunt et nisi culpa non. 
+  Reprehenderit duis occaecat nulla mollit amet occaecat adipisicing. Eius
+  mod cupidatat excepteur commodo id veniam aliqua consequat est. Pariatur ex
+   in eu nisi aliqua cillum in sint eu laboris dolore. Consequat do occaecat 
+   ipsum ipsum tempor. Commodo nisi elit ut nulla magna mollit est.
+</div>
+
+
+
+
+
+
+{% endblock %}

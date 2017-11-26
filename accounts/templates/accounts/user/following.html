@@ -1,0 +1,22 @@
+{% load thumbnail %}
+{% load el_pagination_tags %}
+{% paginate 1 following using 'following' %}
+<div class="row">
+  {% for following in following %}
+  <div >
+          <div>
+              {% if following.profile.photo %}
+          {% thumbnail  following.profile.photo "30x30" crop="100%" as im %}
+                <a href={% url 'profiledetail' username=following.username %} ><img class=" circle responsive-img" src="{{ im.url }}" ></a> 
+                   {% endthumbnail %}
+                   {% else %}
+                   <i class="material-icons">person_outline</i>
+                   {% endif %}
+                   <a href="{% url 'profiledetail' username=following.username %}">{{following.username}}</a>
+              </div>
+              
+          </div>
+          {% endfor %}
+
+</div>
+{% show_more %}

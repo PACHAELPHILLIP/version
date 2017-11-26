@@ -1,0 +1,18 @@
+{% load thumbnail %}
+{% load el_pagination_tags %}
+{% paginate 1 followers using 'other_entries_page' %}
+<div class="row">
+  {% for follower in followers %}
+  <div >
+          <div>
+          {% thumbnail  follower.profile.photo "30x30" crop="100%" as im %}
+                <a href={% url 'profiledetail' username=follower.username %} ><img class=" circle responsive-img" src="{{ im.url }}" ></a> 
+                   {% endthumbnail %}
+                   <a href="{% url 'profiledetail' username=follower.username %}">{{follower.username}}</a>
+              </div>
+              
+          </div>
+          {% endfor %}
+
+</div>
+{% show_more %}

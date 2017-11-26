@@ -1,0 +1,51 @@
+
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Newly Post</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
+</head>
+<body>
+  
+<div class="container">
+<div class="panel panel-success">
+  <div class="panel-heading">Add your swify</div>
+       <form id="post_form" method="post" action=""
+      enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class ="col-md-6">
+        {{ form|crispy }} <br />
+      
+        </div>
+       
+       {{ formset.management_form }}
+         <div class ="col-md-6">
+    {% for form in formset %}
+  <div class="formset">
+     {{form|crispy }}
+    {% endfor %}
+    
+    </div>
+     <input type="submit" name="submit" value="Save" class="btn btn-primary" >
+     </div>
+    </form>   
+    </div>
+    </div>     
+  
+
+  <script>
+    $('.formset').formset({
+        addText: 'Add more',
+        deleteText: 'Delete'
+    });
+</script> 
+
+</body>
+</html>
+
