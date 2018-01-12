@@ -41,5 +41,6 @@ urlpatterns = [
         views.activate, name='activate'),  
      url(r'^users/follow/$', views.user_follow, name='user_follow'),
      url(r'^users/(?P<username>[-\w]+)/$', views.userdetail, name='profiledetail'),  
-     url(r'^edit/$', views.edit, name='edit'),     
+     url(r'^edit/$', views.edit, name='edit'),
+     url(r'^dashboard/$', views.dashboard, name='dashboard'),     
 ]

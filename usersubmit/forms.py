@@ -1,7 +1,7 @@
 from django import forms
 
 
-from .models import Post,Images,Comment
+from .models import Post,Images
 
 class PostForm(forms.ModelForm):
     category = forms.ChoiceField(widget=forms.Select,choices=Post.CATEGORY_CHOICES)
@@ -31,12 +31,3 @@ ImageInlineFormSet = forms.inlineformset_factory(
 
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['body',]
-        widgets = {
-            'body': forms.Textarea(
-                attrs={'id': 'post-text', 'required': True,'label':None, 'placeholder': 'Say something...'}
-            ),
-        }

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'blog',
     'sorl.thumbnail',
     'el_pagination',
+    'actions',
 ]
 
 MIDDLEWARE = [

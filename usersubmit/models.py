@@ -87,20 +87,3 @@ class Images(models.Model):
         return self.article                         
 
 
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post)
-    author = models.ForeignKey(User, related_name='commenter')
-    body = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)
-    users_like = models.ManyToManyField(settings.AUTH_USER_MODEL,
-                                        related_name='comment_liked',
-                                        blank=True)
-
-    class Meta:
-        ordering = ('-created',)
-
-    def __str__(self):
-        return 'Comment by {} on {}'.format(self.author, self.post)
-    

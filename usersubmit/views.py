@@ -10,7 +10,7 @@ from el_pagination.views import AjaxListView
 from . import forms
 from .models import *
 from common.decorators import ajax_required
-
+from actions.utils import create_action
 # Create your views here.
 
 class PostListView(AjaxListView):
@@ -22,24 +22,11 @@ class PostListView(AjaxListView):
         return Post.objects.all()
 
 
-@login_required
-def ArticleDetailView(request,slug,
-    template='usersubmit/post_detail.html',
-    page_template='usersubmit/comment/comment_ajax.html' ):
-    context = {
-       'post' : Post.objects.get(slug=slug),
-       'comments':Comment.objects.filter(post__slug=slug ),
-       'page_template': page_template,
-       'comment_form': forms.CommentForm(),
-    }
-    if request.is_ajax():
-        template = page_template
-    return render(request, template, context) 
 
 
 
-#class ArticleDetailView(DetailView):
-    #model = Post    
+class ArticleDetailView(DetailView):
+    model = Post    
 
 
 @login_required
@@ -59,6 +46,7 @@ def postview(request):
             for image in images:
                 image.article = post
                 image.save()
+            create_action(request.user, 'Posted new', post)    
             messages.success(request,'Post added.')
             return HttpResponseRedirect('/postfeeds')
     return render(request,'usersubmit/post_create.html',{'form': form,'formset': formset})     
@@ -105,6 +93,7 @@ def post_like(request):
             post = Post.objects.get(id=post_id)
             if action == 'like':
                 post.users_like.add(request.user)
+                create_action(request.user, 'likes', post)
             else:
                 post.users_like.remove(request.user)
             return JsonResponse({'status':'ok'})
@@ -116,34 +105,6 @@ def post_like(request):
 
 
 
-@ajax_required
-@login_required
-@require_POST            
-def create_post(request):
-    post_id = request.POST.get('id')
-    if request.method == 'POST' and post_id:
-        comment_form = CommentForm(request.POST or None)
-        if comment_form.is_valid():
-             comment_form = form.save(commit=False)
-             comment_form.author  = request.user
-             comment_form.post=post_id
-             comment_form.save()
-
-             response_data['post'] = comment_form.post
-             response_data['body'] = comment_form.body
-             response_data['created'] = comment_form.created
-             response_data['author'] = comment_form.author.username
-
-             return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
-    else:
-        return HttpResponse(
-            json.dumps({"nothing to see": "this isn't happening"}),
-            content_type="application/json"
-        )  
-        
 
     
 

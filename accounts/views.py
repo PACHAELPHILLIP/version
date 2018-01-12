@@ -18,6 +18,8 @@ from el_pagination.decorators import page_templates
 from common.decorators import ajax_required
 from django.views.decorators.http import require_POST
 from el_pagination.views import AjaxListView
+from actions.models import Action
+from actions.utils import create_action
 
 
 def signup(request):
@@ -121,6 +123,7 @@ def user_follow(request):
             if action == 'follow':
                 Contact.objects.get_or_create(user_from=request.user,
                                               user_to=user)
+                create_action(request.user, 'is following', user)                              
             else:
                 Contact.objects.filter(user_from=request.user,
                                        user_to=user).delete()
@@ -140,3 +143,16 @@ class FollowerListView(AjaxListView):
         return Post.objects.all()
 
 
+
+@login_required
+def dashboard(request):
+    # Display all actions by default
+    actions = Action.objects.all().exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+    if following_ids:
+        # If user is following others, retrieve only their actions
+        actions = actions.filter(user_id__in=following_ids).select_related('user', 'user__profile').prefetch_related('target')
+    actions = actions[:10]
+
+    return render(request, 'accounts/dashboard.html', {'section': 'dashboard',
+                                                      'actions': actions})

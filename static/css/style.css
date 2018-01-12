@@ -1,3 +1,4 @@
+
 .back {
     background-color: black !important;
 }
@@ -11,6 +12,8 @@
 
 nav .brand-logo {
     color: #631096;
+    font-family: 'Rubik', sans-serif !important;
+    font-size: 25px;
 }
 .tabs.tabs-transparent .tab a, .tabs.tabs-transparent .tab.disabled a, .tabs.tabs-transparent .tab.disabled a:hover {
     color: #333;
@@ -79,13 +82,6 @@ img {
 
 
 
-html {
-    line-height: 1.5;
-    font-family: "Montserrat", sans-serif !important;
-    font-weight: normal;
-    color: #333;
-}
-
 .created{
         font-size: 12px;
 }
@@ -99,5 +95,12 @@ html {
     top:45%;
     left:45%;
     color: white;
+}
+
+html {
+    line-height: 1.5;
+    font-family: 'Overpass', sans-serif !important;
+    font-weight: normal;
+    color: #757575;
 }
 

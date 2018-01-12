@@ -10,9 +10,15 @@
 {% block content %}
 <div class="container ">
   <div class='row'>
-  <div class="col s12 m10">
+  <div class="col s12 m9">
   <span class="card-title"><h5>{{ post.title|lower}}</h5></span>
+   {% with total_images=post.images_set.all.count %}
+      Slides:{{total_images}}
+          {% endwith %}
   Story by <a href="{% url 'profiledetail' username=post.author %}">{{ post.author}}</a> {{post.created|timesince}}
+   <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58461a277584a19d"></script>
+
    <div  class="owl-carousel owl-theme">
                  {% for image in post.images_set.all %} 
                  <div class="row">
@@ -46,7 +52,7 @@
                              <i class="material-icons red-text">bookmark</i>
                         {% endif %}
                     </a>
-                     <i class="material-icons">chat_bubble_outline</i>
+                     
                       {% if request.user == post.author %}
     <a class =" " href="{% url 'usersubmit:postedit' slug=post.slug %}"><i class="material-icons">settings</i></a>
     <a  class =" " href="{% url 'usersubmit:post_remove' slug=post.slug %}"><i class="material-icons">delete_forever</i></a>
@@ -70,43 +76,17 @@
             <!--{% if not forloop.last %},{% endif %}-->
             {% endfor %}
           </div>
-          <hr>
+         
       
  
  <!--comment-->
-  <div class="">
+ 
 
-    {% thumbnail  request.user.profile.photo "25x25" as im %}
-                 <img class="circle responsive-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-        {% endthumbnail %}{{request.user.username}}
-             <form action="" method="post" id="comment-form">
-    {% csrf_token %}
-     <div class="fieldWrapper" id="the_post">
-        {{ comment_form.as_p}}
-    </div>
-    
-    <div class ='right-align'>
-    <input class =" small btn light-blue accent-2" type="submit" value="comment" />
-    </div>
-   <br />
-   
-    
-</form> 
-        </div>
-     {% with comments.count as total_comments %}
-        <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
-    {% endwith %}
-    <div  id="entries"  class="endless_page_template ">
-     
-     {% include page_template  %}
-  
-     </div>
-
-          </div>
+</div>
 
          
-<div class='col m2'>
-
+<div class='col m3'>
+<img class='responsive-img' src="https://cdn-images-1.medium.com/max/1600/1*ibN0ptxrg6LkZ5DZbKv2YA.png" alt="Burgerking add sponser">
 </div>
 </div>
 

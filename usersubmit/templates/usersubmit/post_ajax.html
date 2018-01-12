@@ -4,16 +4,53 @@
 <div class="row">
   {% for article in post  %}
   <div class="col  s6 m4">
-          <div>
+ <div class="card hoverable">
 
-                   {% thumbnail  article.get_first_image.image "300x300" crop="center" as im %}
-                <a href="{{ article.get_absolute_url }}"><img class="responsive-img" src="{{ im.url }}" ></a> 
+        <div class="card-image waves-effect waves-block waves-light">
+<div class= "container ">
+    {% thumbnail  article.get_first_image.image "300x300" crop="center" as im %}
+                <a    href="{{ article.get_absolute_url }}"><img class="responsive-img" src="{{ im.url }}" ></a> 
                    {% endthumbnail %}
                     
+</div>
                  
-              </div>
-          </div>
+    </div>
+    <div class="card-content">
+      <span class=" activator grey-text text-darken-4">
+        <div>
+          
+          <p>
+          {% with total_likes=article.users_like.count users_like=article.users_like.all %}
+          
+           Likes:{{ total_likes }}
+         
+          {% endwith %}
+          {% with total_images=article.images_set.all.count %}
+        Slides:{{total_images}} 
+          {% endwith %}
+        <i activator class="material-icons  right">more_vert</i></span>
+        </p>
+        </div>
+       
+     
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+      <p>{{article.title}}</p>
+    </div> 
+    </div>
+  </div>
+           
+
+          <!--comment-->
+           
+        
+
+ 
           {% endfor %}
 
 </div>
 {% show_more %}
+
+
+ 
